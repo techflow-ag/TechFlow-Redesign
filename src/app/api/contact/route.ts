@@ -20,7 +20,32 @@ type Brief = {
   consent?: boolean;
   /** Honeypot: a hidden field real visitors leave empty. */
   fax?: string;
+  /** When the form was shown (ms since epoch), set by the page's script: bots posting directly have none. */
+  shownAt?: number;
 };
+
+/** Random-looking tokens bots send ("sBbziUpsMezAexuyzpLmZqV"): no space, long, many case switches. */
+function gibberish(text: string) {
+  return text.split(/\s+/).some((word) => {
+    if (word.length < 12 || /[^A-Za-z]/.test(word)) return false;
+    const switches = [...word].filter((ch, i) => i > 0 && (ch === ch.toUpperCase()) !== (word[i - 1] === word[i - 1].toUpperCase())).length;
+    return switches >= 8 && switches / word.length >= 0.4;
+  });
+}
+
+/** Spam signals; any one is enough to drop the message (the bot still gets "ok"). */
+function spamReason(brief: Brief, name: string, message: string) {
+  if (brief.fax) return "honeypot";
+  const shown = Number(brief.shownAt);
+  if (!shown) return "no-js";
+  const elapsed = Date.now() - shown;
+  if (elapsed < 4000) return "too-fast";
+  if (elapsed > 1000 * 60 * 60 * 24) return "stale";
+  if (gibberish(name) || gibberish(message) || gibberish(String(brief.company ?? ""))) return "gibberish";
+  if (!/\s/.test(message.trim()) && message.length > 15) return "one-word";
+  if ((message.match(/https?:\/\//g) ?? []).length > 3) return "links";
+  return null;
+}
 
 const escape = (s: string) => s.replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[ch]!);
 const clip = (s: unknown, max: number) => (typeof s === "string" ? s.trim().slice(0, max) : "");
@@ -41,13 +66,17 @@ export async function POST(request: Request) {
   } catch {
     return NextResponse.json({ ok: false, error: "invalid" }, { status: 400 });
   }
-  // Bots fill every field: pretend it worked.
-  if (brief.fax) return NextResponse.json({ ok: true });
-
   const lang = brief.lang === "en" ? "en" : "fr";
   const name = clip(brief.name, 120);
   const email = clip(brief.email, 200);
   const message = clip(brief.message, 5000);
+
+  // Spam: pretend it worked so bots don't adapt, but send nothing.
+  const spam = spamReason(brief, name, message);
+  if (spam) {
+    console.warn(`contact: dropped (${spam})`);
+    return NextResponse.json({ ok: true });
+  }
   if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !message || brief.consent !== true) {
     return NextResponse.json({ ok: false, error: "invalid" }, { status: 400 });
   }
