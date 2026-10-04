@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { href } from "@/i18n/routes";
 import { OfficeMap } from "../page/office-map";
 import { ButtonLink, PageHero, SectionHeader } from "../page/ui";
@@ -178,6 +178,12 @@ function BriefForm() {
   const [budget, setBudget] = useState("");
   const [timeline, setTimeline] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  // Anti-spam: when the form appeared in the browser (bots posting straight to the API have none).
+  const [shownAt, setShownAt] = useState(0);
+  useEffect(() => {
+    const id = setTimeout(() => setShownAt(Date.now()), 0);
+    return () => clearTimeout(id);
+  }, []);
 
   const toggle = (value: string) =>
     setServices((s) =>
@@ -205,6 +211,7 @@ function BriefForm() {
           message: get("message"),
           consent: data.get("consent") === "on",
           fax: get("fax"),
+          shownAt,
         }),
       });
       if (!res.ok) throw new Error(String(res.status));
@@ -311,7 +318,7 @@ function BriefForm() {
               />
             </label>
             {/* Honeypot: hidden from people, filled by bots. */}
-            <input type="text" name="fax" tabIndex={-1} autoComplete="off" aria-hidden className="hidden" />
+            <input type="text" name="fax" tabIndex={-1} autoComplete="off" aria-hidden className="absolute -left-[9999px] size-px opacity-0" />
             <label className="flex items-start gap-3 text-sm text-ink/70">
               <input type="checkbox" name="consent" required className="mt-0.5 size-4 shrink-0 accent-brand-deep" />
               <span>
