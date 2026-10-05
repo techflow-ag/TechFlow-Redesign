@@ -18,6 +18,7 @@ Update at the end of every work session (see CLAUDE.md). Newest first. Link GitH
 - Decide whether to move the remaining local content (Gato Tower case study, Mux video testimonials, contact/services team members) into Sanity.
 
 ## Done
+- 2026-10-05 — **/merci-2**: /merci rebuilt with the design system (same blocks, copy and images) to compare with the as-is version. Max picks one, the other gets deleted.
 - 2026-10-05 — **/merci landing page** (Meta lead form → Calendly with Arthur) served as is from the former Astro site (`scripts/landing/import-merci.py`, see CLAUDE.md), Webflow CDN images localized, "+1 500 sites" stat (Max's call, matches the ads). Sanity: redirect `/merci` → `/` deleted, `/confidentialite` → `/politique-de-confidentialite` added.
 - 2026-10-03 — **Go-live**: www.techflow-agency.com on Vercel (main), cms.techflow-agency.com and staging.techflow-agency.com live, contact form via Resend tested, 5 EN articles published (editor fixes applied), first-visit logo animation, sky parallax.
 - 2026-10-03 — Contact form via Resend (needs RESEND_API_KEY), cookie consent + GA4, cookie policy merged into privacy, legal notices with both companies, footer tool links, two-row client logos (Koulier out, 13 old logos back), calmer buttons, scroll to top, case-study and article layouts widened, comparison tables ✓/✗ only, section spacing reduced, 22 EN Webflow drafts imported as Sanity drafts, 51 Webflow redirects in Sanity.
