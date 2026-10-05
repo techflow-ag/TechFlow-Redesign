@@ -240,14 +240,12 @@ function HowWeWork({ content }: { content: HowWeWorkContent }) {
                 transition={{ duration: 0.4, ease }}
                 className="relative flex h-full w-full items-center justify-center"
               >
-                <Image
-                  src={item.image}
-                  alt={item.alt}
-                  width={VISUAL_SIZE[item.image]?.[0] ?? 1200}
-                  height={VISUAL_SIZE[item.image]?.[1] ?? 1200}
-                  sizes="(min-width: 1024px) 45vw, 100vw"
-                  className="h-auto max-h-full w-auto max-w-full rounded-[2rem]"
-                />
+                <div
+                  className="relative h-full max-w-full overflow-hidden rounded-[2rem]"
+                  style={{ aspectRatio: `${VISUAL_SIZE[item.image]?.[0] ?? 1}/${VISUAL_SIZE[item.image]?.[1] ?? 1}` }}
+                >
+                  <Image src={item.image} alt={item.alt} fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
+                </div>
               </motion.div>
             </AnimatePresence>
           </div>
