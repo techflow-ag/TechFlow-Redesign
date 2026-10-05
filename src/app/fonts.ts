@@ -1,4 +1,4 @@
-import { Geist_Mono } from "next/font/google";
+import { Geist_Mono, Instrument_Serif } from "next/font/google";
 import localFont from "next/font/local";
 
 // Satoshi files are subset to Latin, Latin-1/Extended-A, punctuation, arrows and € (French + English);
@@ -12,14 +12,11 @@ const satoshi = localFont({
   ],
 });
 
-// Staging trial (2026-10-03): Tobias (trial licence) replaces Instrument Serif for the display type.
-// Variable fonts (wght 100–900) subset like Satoshi, ~32 KB each. Not on main.
-const tobias = localFont({
-  variable: "--font-tobias",
-  src: [
-    { path: "../fonts/tobias-uprights.woff2", weight: "100 900", style: "normal" },
-    { path: "../fonts/tobias-italics.woff2", weight: "100 900", style: "italic" },
-  ],
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
 });
 
 const geistMono = Geist_Mono({
@@ -30,4 +27,4 @@ const geistMono = Geist_Mono({
 });
 
 /** Font CSS variables for <html>, in the root layout and the global 404. */
-export const fontClasses = `${satoshi.variable} ${tobias.variable} ${geistMono.variable}`;
+export const fontClasses = `${satoshi.variable} ${instrumentSerif.variable} ${geistMono.variable}`;
