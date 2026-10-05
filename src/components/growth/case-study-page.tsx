@@ -87,7 +87,7 @@ function Hero({ study, brand }: { study: GrowthStudy; brand: Brand }) {
   const slots = [1, 0, 2].slice(0, ads.length);
 
   return (
-    <section id="top" className="grain relative flex min-h-svh flex-col overflow-hidden bg-night px-5 pb-16 pt-32 text-white md:px-10 md:pb-20">
+    <section id="top" className="grain relative flex min-h-svh flex-col overflow-hidden bg-night px-5 pb-12 pt-24 text-white md:px-10 md:pb-16 md:pt-28">
       {study.heroImage?.asset && (
         <div aria-hidden className="absolute inset-0">
           <SanityImage image={study.heroImage} alt="" fill priority width={2000} sizes="100vw" className="object-cover opacity-20" />
@@ -100,7 +100,7 @@ function Hero({ study, brand }: { study: GrowthStudy; brand: Brand }) {
         className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(70%_60%_at_60%_40%,black,transparent)]"
       />
 
-      <div className="relative mx-auto flex w-full max-w-7xl flex-1 flex-col gap-12">
+      <div className="relative mx-auto flex w-full max-w-7xl flex-1 flex-col gap-6 md:gap-8">
         <motion.nav aria-label="Breadcrumb" {...reveal(0)} className="eyebrow flex flex-wrap items-center gap-2 text-white/55">
           <Link href={href(lang, "home")} className="hover:text-white">
             {t.common.breadcrumbHome}
@@ -122,20 +122,20 @@ function Hero({ study, brand }: { study: GrowthStudy; brand: Brand }) {
               {serviceTag.length > 0 && <span className="rounded-full border border-(--accent)/40 bg-(--accent)/10 px-3.5 py-1.5 text-sm text-(--accent)">{serviceTag.join(" · ")}</span>}
             </motion.div>
 
-            <RevealHeading as="h1" text={study.title ?? ""} className="mt-8 font-serif text-[clamp(3.25rem,7.5vw,7.5rem)] leading-[0.9] tracking-[-0.03em]" />
+            <RevealHeading as="h1" text={study.title ?? ""} className="mt-6 font-serif text-[clamp(2.75rem,5.5vw,5.5rem)] leading-[0.9] tracking-[-0.03em]" />
             {hero?.headline && (
-              <motion.p {...reveal(0.35)} className="mt-4 font-serif text-3xl italic leading-tight text-(--accent) md:text-4xl">
+              <motion.p {...reveal(0.35)} className="mt-3 font-serif text-2xl italic leading-tight text-(--accent) md:text-3xl">
                 {hero.headline}
               </motion.p>
             )}
             {study.summary && (
-              <motion.p {...reveal(0.45, false)} className="mt-6 max-w-xl text-lg text-white/70 md:text-xl">
+              <motion.p {...reveal(0.45, false)} className="mt-4 max-w-xl text-base text-white/70 md:text-lg">
                 {study.summary}
               </motion.p>
             )}
 
             {tags.length > 0 && (
-              <motion.ul {...reveal(0.5)} className="mt-6 flex flex-wrap gap-2 text-sm">
+              <motion.ul {...reveal(0.5)} className="mt-5 flex flex-wrap gap-2 text-sm">
                 {tags.map((tag) => (
                   <li
                     key={`${tag.sector}-${tag.label}`}

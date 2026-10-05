@@ -536,16 +536,16 @@ function StepBlock({ chapter, index, label, lang }: { chapter: Chapter; index: n
       >
         {number}
       </span>
-      <FadeIn className="grid gap-6 lg:grid-cols-[minmax(0,4fr)_minmax(0,7fr)] lg:gap-16">
+      <FadeIn className="grid gap-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,9fr)] lg:gap-14">
         <div>
           <p className="eyebrow text-ink/60">
             {label} {number}
           </p>
-          <h2 id={`${chapter.id}-title`} className="mt-3 font-serif text-4xl leading-[1.02] md:text-5xl">
+          <h2 id={`${chapter.id}-title`} className="mt-3 font-serif text-3xl leading-[1.05] md:text-[2.25rem]">
             {chapter.title}
           </h2>
         </div>
-        <article lang={lang} className="max-w-2xl [&>*:first-child]:mt-0">
+        <article lang={lang} className="max-w-4xl [&>*:first-child]:mt-0">
           <PortableBody value={chapter.blocks} />
         </article>
       </FadeIn>
@@ -567,7 +567,7 @@ function ChapterBlock({ chapter, index, label, lang }: { chapter: Chapter; index
           <span aria-hidden className="mt-3 block font-serif text-[clamp(3.5rem,5vw,5rem)] leading-[0.85] text-ink/10">
             {number}
           </span>
-          <h2 id={`${chapter.id}-title`} className="mt-2 font-serif text-4xl leading-[1.02] md:text-[2.5rem]">
+          <h2 id={`${chapter.id}-title`} className="mt-2 font-serif text-3xl leading-[1.05] md:text-[2.25rem]">
             {chapter.title}
           </h2>
         </FadeIn>
