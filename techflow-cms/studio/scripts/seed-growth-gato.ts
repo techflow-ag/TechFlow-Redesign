@@ -47,7 +47,7 @@ const shared = {
   slug: {_type: 'slug', current: 'gato-tower'},
   accentColor: '#c9a45c',
   handle: 'gatotowerofficial',
-  order: 0,
+  order: 5,
   channels: ['Facebook', 'Instagram', 'TikTok'],
 }
 

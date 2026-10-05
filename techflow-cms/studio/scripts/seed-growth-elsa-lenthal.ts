@@ -176,7 +176,7 @@ async function run() {
       slug: {_type: 'slug', current: 'elsa-lenthal'},
       accentColor: '#8e7cc3',
       handle: 'elsalenthal',
-      order: 1,
+      order: 8,
       channels: ['Facebook', 'Instagram'],
       websiteUrl: 'https://elsalenthal.com',
       summary: c.summary,
