@@ -266,7 +266,7 @@ export const INSIGHT_SLUGS_QUERY = defineQuery(`
 
 /** A document with this slug in any language, for URLs that point at the wrong locale. */
 export const SLUG_LOOKUP_QUERY = defineQuery(`
-  *[_type == $type && slug.current == $slug][0]{
+  *[_type == $type && slug.current == $slug && (previewOnly != true || $preview)][0]{
     language,
     ${translations}
   }
