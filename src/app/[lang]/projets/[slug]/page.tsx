@@ -13,13 +13,14 @@ import { translationLinks } from "@/sanity/metadata";
 import { buildMetadata } from "@/sanity/seo";
 import { urlFor } from "@/sanity/image";
 import { caseStudyJsonLd, JsonLd, ORGANIZATION_ID } from "@/components/seo/json-ld";
+import { isProduction } from "@/i18n/env";
 import { GROWTH_SLUGS_QUERY, PROJECT_SLUGS_QUERY } from "@/sanity/queries";
 
 export async function generateStaticParams({ params }: { params: { lang: string } }) {
   const cdnless = client.withConfig({ useCdn: false });
   const [projects, growth] = await Promise.all([
     cdnless.fetch(PROJECT_SLUGS_QUERY, { lang: params.lang }),
-    cdnless.fetch(GROWTH_SLUGS_QUERY, { lang: params.lang }),
+    cdnless.fetch(GROWTH_SLUGS_QUERY, { lang: params.lang, preview: !isProduction }),
   ]);
   return [...projects, ...growth].flatMap((slug) => (slug ? [{ slug }] : []));
 }
