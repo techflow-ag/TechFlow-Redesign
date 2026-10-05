@@ -27,6 +27,8 @@ const nextConfig: NextConfig = {
   experimental: {
     // Tailwind CSS is small: inlined in the HTML, it no longer blocks the first paint on slow phones.
     inlineCss: true,
+    // 404 for URLs matching no route: app/global-not-found.tsx (the root layout is under [lang]).
+    globalNotFound: true,
   },
   redirects: sanityRedirects,
   async headers() {

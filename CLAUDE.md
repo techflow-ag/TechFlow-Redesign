@@ -112,6 +112,11 @@ Put project knowledge here, not in a personal Claude memory, so the whole team s
 - French only (`/en/merci` 404), noindex (meta + `X-Robots-Tag`), not in the sitemap or llms.txt: it only makes sense after the form, and its views count as conversions.
 - The Sanity redirect `/merci` → `/` (Webflow migration) was deleted for it; a redirect would win over the page. `/confidentialite` → `/politique-de-confidentialite` was added (old Meta form link).
 
+## 404 page (2026-10-05)
+- Every 404 used to show Next's bare fallback ("This page could not be found"): `[lang]/not-found.tsx` was a client component rendering `PageShell`, whose `SiteFooter` is an async server component, and URLs matching no route never reach `[lang]/not-found` anyway because the root layout is under `[lang]`.
+- Now: `[lang]/not-found.tsx` is a server component (for `notFound()` in pages), and `app/global-not-found.tsx` (`experimental.globalNotFound` in next.config.ts) covers URLs matching no route; it renders outside every layout, so it has its own `<html>`, `globals.css` and fonts (`app/fonts.ts`, shared with the root layout). Both render `NotFoundContent` in `PageShell` (navbar, "Retour à l'accueil" button, links, footer). Neither gets params: the proxy sets the `x-techflow-locale` request header (`i18n/locale-header.ts`) and they read it.
+- With `curl`, a `notFound()` 404 still contains Next's fallback markup in the first HTML chunk; the real page streams in right after. Check 404s in a browser.
+
 # Gotchas
 - Publishing an old Studio draft replaces the whole published document with it: on 2026-10-02 three projects (Place des Aînés, Épargne Plurielle Avenir, OPCO EP) were published from drafts made on 2026-10-01 before the sector migration and colour seeding, and lost their `sectors` and `accentColor` (restored by script). Scripts patch published documents only; if a document has a draft, discard it or re-check those fields before publishing it.
 - Pages cache Sanity results for 60 s (`sanityFetch` revalidate), including a `null`. A page requested just before its document was created keeps 404ing until the cache revalidates (one more request after 60 s); it isn't a code bug.
