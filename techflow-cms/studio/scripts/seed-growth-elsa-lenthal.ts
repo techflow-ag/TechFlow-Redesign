@@ -2,7 +2,8 @@
  * Seed (2026-10-05): the Elsa Lenthal growth case study (Provence lavender brand, Meta sales
  * campaign + Brevo CRM + checkout journey), FR + EN, built on the G.A.T.O Tower template.
  * Figures come from the July–August 2026 campaign reports (emails of 26/08 and 25/09):
- * only ratios and deltas, no exact sales counts (client request). Created "Staging only".
+ * only ratios and deltas, no exact sales counts and no month names on the page (client
+ * request). Created "Staging only".
  *
  *   npx sanity exec scripts/seed-growth-elsa-lenthal.ts --with-user-token -- --media=<dir> [--dry-run] [--replace]
  *
@@ -45,8 +46,8 @@ const content: Record<Lang, Record<string, unknown>> = {
     headline: 'Faire vendre en ligne un savoir-faire de Provence.',
     ctaLabel: 'Lancer ma campagne',
     stats: [
-      ['+52 %', 'de commandes en ligne en août*'],
-      ['+46 %', 'de CA en ligne en août*'],
+      ['+52 %', 'de commandes en ligne*'],
+      ['+46 %', 'de CA en ligne*'],
       ['+56 %', 'de retour sur le budget pub'],
       ['4,7 %', 'de taux de clic (CTR)'],
     ],
@@ -72,13 +73,13 @@ const content: Record<Lang, Record<string, unknown>> = {
       h2('Mesurer chaque vente'),
       p("Chaque commande venue de la campagne est identifiée grâce à des liens de tracking et au pixel Meta, puis rapprochée des commandes réelles de la boutique. Nous savons ainsi exactement ce que la publicité rapporte, au-delà des chiffres déclarés par Meta, et nous ajustons la campagne sur ces ventes réelles."),
       h2('Les résultats'),
-      p("En août, la campagne a rapporté plus que son budget publicitaire : +56 % de retour sur investissement, et des dizaines de ventes supplémentaires sur l'été. Rapportées à l'activité en ligne habituelle de la marque, les commandes venues de la campagne représentent +52 % de commandes et +46 % de chiffre d'affaires en ligne sur le mois."),
-      p("* Commandes et chiffre d'affaires suivis par les liens de tracking en août 2026, comparés à la moyenne mensuelle de la boutique en ligne sur les 12 mois précédant la campagne."),
+      p("La campagne a rapporté plus que son budget publicitaire : +56 % de retour sur investissement, et des dizaines de ventes supplémentaires. Rapportées à l'activité en ligne habituelle de la marque, les commandes venues de la campagne représentent +52 % de commandes et +46 % de chiffre d'affaires en ligne sur un mois."),
+      p("* Commandes et chiffre d'affaires suivis par les liens de tracking sur un mois de campagne, comparés à la moyenne mensuelle de la boutique en ligne sur les 12 mois précédents."),
     ],
     results: [
-      ['Des dizaines', 'de ventes supplémentaires sur l’été'],
-      ['+16 %', 'de ROAS entre juillet et août'],
-      ['+11 %', 'de panier moyen entre juillet et août'],
+      ['Des dizaines', 'de ventes supplémentaires'],
+      ['+16 %', 'de ROAS (retour sur dépense pub)'],
+      ['+11 %', 'de panier moyen'],
       ['0,11 €', 'par clic au lancement'],
     ],
     adsHeading: 'Les publicités, *telles qu’elles passent.*',
@@ -99,8 +100,8 @@ const content: Record<Lang, Record<string, unknown>> = {
     headline: 'Selling a Provence craft online.',
     ctaLabel: 'Launch my campaign',
     stats: [
-      ['+52%', 'online orders in August*'],
-      ['+46%', 'online revenue in August*'],
+      ['+52%', 'online orders*'],
+      ['+46%', 'online revenue*'],
       ['+56%', 'return on ad spend'],
       ['4.7%', 'click-through rate'],
     ],
@@ -126,13 +127,13 @@ const content: Record<Lang, Record<string, unknown>> = {
       h2('Measuring every sale'),
       p('Every order coming from the campaign is identified through tracking links and the Meta pixel, then matched against the shop’s real orders. We know exactly what the ads bring in, beyond the figures Meta reports, and tune the campaign on those real sales.'),
       h2('Results'),
-      p('In August the campaign brought in more than its ad budget: a 56% return on ad spend, and dozens of extra sales over the summer. Compared with the brand’s usual online business, the orders it generated amount to 52% more online orders and 46% more online revenue for the month.'),
-      p('* Orders and revenue tracked through the campaign links in August 2026, compared with the online shop’s monthly average over the 12 months before the campaign.'),
+      p('The campaign brought in more than its ad budget: a 56% return on ad spend, and dozens of extra sales. Compared with the brand’s usual online business, the orders it generated amount to 52% more online orders and 46% more online revenue over a month.'),
+      p('* Orders and revenue tracked through the campaign links over one month of the campaign, compared with the online shop’s monthly average over the previous 12 months.'),
     ],
     results: [
-      ['Dozens', 'of extra sales over the summer'],
-      ['+16%', 'ROAS from July to August'],
-      ['+11%', 'average order value from July to August'],
+      ['Dozens', 'of extra sales'],
+      ['+16%', 'ROAS (return on ad spend)'],
+      ['+11%', 'average order value'],
       ['€0.11', 'per click at launch'],
     ],
     adsHeading: 'The ads, *as they run.*',
