@@ -325,7 +325,7 @@ export const en: Dictionary = {
     playVideo: "Play the video with sound",
     comparison: {
       eyebrow: "Comparison",
-      heading: "Why we're the *natural choice.*",
+      heading: "What sets us *apart.*",
       techflow: "TechFlow",
       agencies: "Other agencies",
       freelancers: "Freelancers",

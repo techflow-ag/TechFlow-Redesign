@@ -137,6 +137,7 @@ export function HoverPreview({
       onPointerLeave={() => setActive(null)}
     >
       {children((i) => ({ onPointerEnter: () => setActive(i) }))}
+      {images.length > 0 && (
       <motion.div aria-hidden style={{ x: sx, y: sy }} className="pointer-events-none absolute left-0 top-0 z-30 hidden md:block">
         <div className="-translate-x-1/2 -translate-y-1/2">
           <motion.div
@@ -159,6 +160,7 @@ export function HoverPreview({
           </motion.div>
         </div>
       </motion.div>
+      )}
     </div>
   );
 }

@@ -61,7 +61,8 @@ export function ServicePage({ service, faq, cmsProjects }: { service: ServiceKey
 
       <ServiceShowcase service={service} card={c.hero.card} />
       <Audience content={c} />
-      <Offer content={c} previews={previews} />
+      {/* Sales funnel: not a visual service, so its offer rows show no screenshot on hover. */}
+      <Offer content={c} previews={service === "salesFunnel" ? [] : previews} />
       <Quote quote={c.quote} />
       {c.statement && <Statement statement={c.statement} />}
       {c.highlight && <Highlight highlight={c.highlight} />}
@@ -133,7 +134,7 @@ function Audience({ content }: { content: ServiceContent }) {
 
 function Offer({ content, previews }: { content: ServiceContent; previews: string[] }) {
   const o = content.offer;
-  const images = o.items.map((_, i) => previews[i % previews.length]);
+  const images = previews.length ? o.items.map((_, i) => previews[i % previews.length]) : [];
   return (
     <section className="bg-night px-5 py-20 text-white md:px-10 md:py-32">
       <div className="mx-auto max-w-7xl">

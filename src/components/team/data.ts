@@ -99,7 +99,7 @@ const fr = {
     intro: "Une seule équipe pour la stratégie, le design, le développement et l'automatisation, du premier atelier à la mise en ligne.",
   },
   comparison: {
-    heading: "Pourquoi nous sommes le *choix naturel.*",
+    heading: "Ce qui nous *distingue.*",
     intro:
       "Les freelances apportent du talent mais pas de système. Les autres agences apportent du process mais pas de vision. TechFlow apporte les deux, avec une équipe dédiée et une responsabilité complète, du brief à la mise en ligne.",
     rows: [
@@ -198,7 +198,7 @@ const en: typeof fr = {
     intro: "One team for strategy, design, development and automation, from the first workshop to launch.",
   },
   comparison: {
-    heading: "Why we're the *natural choice.*",
+    heading: "What sets us *apart.*",
     intro:
       "Freelancers bring talent but no system. Other agencies bring process but no vision. TechFlow brings both, with a dedicated team and full accountability, from brief to launch.",
     rows: [

@@ -56,18 +56,20 @@ export function Brief() {
   return (
     <section
       id="brief"
-      className="relative rounded-[2.5rem] bg-paper px-5 py-20 text-ink md:rounded-[4rem] md:px-10 md:py-28"
+      className="relative rounded-[2.5rem] bg-paper px-5 py-16 text-ink md:rounded-[4rem] md:px-10 md:py-20"
     >
+      {/* Title in the left column with the questions; the brief card on the right takes the same height. */}
       <div className="mx-auto max-w-7xl">
-        <p className="eyebrow text-brand-deep">{b.eyebrow}</p>
-        <RevealHeading
-          text={b.heading}
-          accentClassName="italic text-brand-deep"
-          className="mt-4 max-w-4xl font-serif text-[2.75rem] leading-[0.95] md:text-[4.125rem]"
-        />
-
-        <div className="mt-8 grid gap-8 md:mt-12 md:gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-14">
-          <div className="space-y-6 md:space-y-8">
+        <div className="grid gap-8 md:gap-10 lg:grid-cols-[1.2fr_1fr] lg:items-stretch lg:gap-14">
+          <div className="space-y-5 md:space-y-6">
+            <div>
+              <p className="eyebrow text-brand-deep">{b.eyebrow}</p>
+              <RevealHeading
+                text={b.heading}
+                accentClassName="italic text-brand-deep"
+                className="mt-3 max-w-2xl font-serif text-[2.5rem] leading-[0.95] md:text-[3.5rem]"
+              />
+            </div>
             <Question index={1} title={b.needs.title} hint={b.needs.hint}>
               {services.map((s) => (
                 <Chip
@@ -100,13 +102,14 @@ export function Brief() {
             </Question>
           </div>
 
-          <div className="lg:sticky lg:top-28 lg:self-start">
-            <div className="relative overflow-hidden rounded-[2rem] bg-night p-6 text-white shadow-[0_40px_100px_-30px_rgba(54,71,245,0.6)] md:p-8">
+          <div>
+            <div className="relative flex h-full flex-col overflow-hidden rounded-[2rem] bg-night p-6 text-white shadow-[0_40px_100px_-30px_rgba(54,71,245,0.6)] md:p-8">
               <div
                 aria-hidden
                 className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full bg-brand/30 blur-3xl"
               />
-              <div className="relative">
+              <div className="relative flex flex-1 flex-col justify-between">
+                <div>
                 <div className="flex items-center justify-between">
                   <p className="eyebrow text-white/55">{b.card}</p>
                 </div>
@@ -156,6 +159,8 @@ export function Brief() {
                   <Row label={b.start.label} value={b.start.value} />
                 </dl>
 
+                </div>
+                <div>
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                   <Magnetic strength={0.2} className="flex-1">
                     <a
@@ -176,6 +181,7 @@ export function Brief() {
                   </button>
                 </div>
                 <p className="mt-4 text-xs text-white/55">{b.note}</p>
+                </div>
               </div>
             </div>
           </div>
@@ -202,8 +208,8 @@ function Question({
         <span className="eyebrow text-brand-deep">0{index}</span>
         <span className="text-xl font-medium md:text-2xl">{title}</span>
       </legend>
-      {hint && <p className="mt-1 pl-9 text-sm text-ink/60">{hint}</p>}
-      <div className="mt-3 flex flex-wrap gap-2 md:mt-4">{children}</div>
+      {hint && <p className="mt-0.5 pl-9 text-sm text-ink/60">{hint}</p>}
+      <div className="mt-2.5 flex flex-wrap gap-2 md:mt-3">{children}</div>
     </fieldset>
   );
 }

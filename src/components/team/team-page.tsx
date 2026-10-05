@@ -1,16 +1,19 @@
 "use client";
 
 import Image from "next/image";
-import { useSyncExternalStore } from "react";
-import { m as motion } from "motion/react";
+import { useState, useSyncExternalStore } from "react";
+import { AnimatePresence, m as motion } from "motion/react";
 import { href } from "@/i18n/routes";
 import { ease } from "../site/content";
 import { useLocale } from "../site/locale";
 import { FadeIn, RevealHeading } from "../site/reveal";
+import { useStill } from "../site/use-still";
 import { SanityImage } from "../cms/sanity-image";
 import { OfficeMap } from "../page/office-map";
 import { Chip, ComparisonTable, HumanActions, PageHero, SectionHeader } from "../page/ui";
 import { offices, teamContent, type TeamMember } from "./data";
+
+type HowWeWorkContent = (typeof teamContent)["fr"]["howWeWork"];
 
 /** Intrinsic sizes of the "how we work" visuals (public/images/studio). */
 const VISUAL_SIZE: Record<string, [number, number]> = {
@@ -64,43 +67,7 @@ export function TeamPage({ members, testimonials }: { members: TeamMember[]; tes
         </div>
       </section>
 
-      <section className="bg-night px-5 py-20 text-white md:px-10 md:py-28">
-        <div className="mx-auto max-w-7xl">
-          <SectionHeader eyebrow={c.howWeWork.eyebrow} title={c.howWeWork.heading} />
-          <ol className="mt-20 space-y-24 md:space-y-32">
-            {c.howWeWork.items.map((item, i) => (
-              <li key={item.title} className="grid items-center gap-10 lg:grid-cols-2 lg:gap-20">
-                <FadeIn className={i % 2 ? "lg:order-2" : ""}>
-                  <div className="relative">
-                    <div aria-hidden className="absolute -inset-4 rounded-[3rem] bg-brand/15 blur-3xl md:-inset-6" />
-                    {/* Each visual at its own ratio with rounded corners: they are mockups (a call, a board) that must not be cropped or padded. */}
-                    <Image
-                      src={item.image}
-                      alt={item.alt}
-                      width={VISUAL_SIZE[item.image]?.[0] ?? 1200}
-                      height={VISUAL_SIZE[item.image]?.[1] ?? 1200}
-                      sizes="(min-width: 1024px) 45vw, 100vw"
-                      className="relative h-auto w-full rounded-[2.5rem]"
-                    />
-                  </div>
-                </FadeIn>
-                <FadeIn delay={0.1}>
-                  <span className="eyebrow text-brand-sky">0{i + 1}</span>
-                  <h3 className="mt-4 font-serif text-4xl leading-tight md:text-6xl">{item.title}</h3>
-                  <p className="mt-6 max-w-md text-lg text-white/60">{item.text}</p>
-                  <ul className="mt-8 flex flex-wrap gap-2">
-                    {item.tags.map((tag) => (
-                      <li key={tag}>
-                        <Chip>{tag}</Chip>
-                      </li>
-                    ))}
-                  </ul>
-                </FadeIn>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
+      <HowWeWork content={c.howWeWork} />
 
       <section className="rounded-[2.5rem] bg-paper px-5 py-20 text-ink md:rounded-[4rem] md:px-10 md:py-28">
         <div className="mx-auto max-w-7xl">
@@ -182,6 +149,111 @@ export function TeamPage({ members, testimonials }: { members: TeamMember[]; tes
 
       {testimonials}
     </>
+  );
+}
+
+/**
+ * "How we work": one section instead of three stacked rows. The steps on the left advance on
+ * their own (progress line, paused while the pointer is over the section); hovering or
+ * clicking a step shows it. The visual on the right follows the active step.
+ */
+function HowWeWork({ content }: { content: HowWeWorkContent }) {
+  const still = useStill();
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const item = content.items[active];
+
+  return (
+    <section className="bg-night px-5 py-20 text-white md:px-10 md:py-28">
+      <div className="mx-auto max-w-7xl">
+        <SectionHeader eyebrow={content.eyebrow} title={content.heading} />
+        <div
+          onPointerEnter={(e) => e.pointerType === "mouse" && setPaused(true)}
+          onPointerLeave={() => setPaused(false)}
+          className="mt-14 grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16"
+        >
+          <ol className="border-t border-white/10">
+            {content.items.map((it, i) => {
+              const on = i === active;
+              return (
+                <li key={it.title} className="relative border-b border-white/10">
+                  <button
+                    type="button"
+                    onClick={() => setActive(i)}
+                    onPointerEnter={(e) => e.pointerType === "mouse" && setActive(i)}
+                    aria-expanded={on}
+                    className="group flex w-full items-start gap-5 py-6 text-left"
+                  >
+                    <span className={`eyebrow pt-2 transition-colors ${on ? "text-brand-sky" : "text-white/55"}`}>0{i + 1}</span>
+                    <span
+                      className={`font-serif text-3xl leading-[1.05] transition-colors duration-500 md:text-4xl ${on ? "text-white" : "text-white/55 group-hover:text-white/75"}`}
+                    >
+                      {it.title}
+                    </span>
+                  </button>
+                  <AnimatePresence initial={false}>
+                    {on && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.5, ease }}
+                        className="overflow-hidden"
+                      >
+                        <div className="pb-7 pl-10 md:pl-11">
+                          <p className="max-w-lg text-white/60">{it.text}</p>
+                          <ul className="mt-5 flex flex-wrap gap-2">
+                            {it.tags.map((tag) => (
+                              <li key={tag}>
+                                <Chip>{tag}</Chip>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                  {on && (
+                    <span aria-hidden className="absolute inset-x-0 -bottom-px h-px overflow-hidden">
+                      <span
+                        key={active}
+                        onAnimationEnd={() => setActive((active + 1) % content.items.length)}
+                        style={{ animationPlayState: paused ? "paused" : "running" }}
+                        className={`block h-full origin-left bg-linear-to-r from-brand-deep to-brand-sky ${still ? "" : "animate-progress"}`}
+                      />
+                    </span>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+
+          {/* Each visual keeps its own ratio (a board, a call, an office): fitted inside a fixed-height stage, never cropped. */}
+          <div className="relative flex h-[340px] items-center justify-center md:h-[480px] lg:h-[520px]">
+            <div aria-hidden className="absolute inset-8 rounded-[3rem] bg-brand/15 blur-3xl" />
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={item.image}
+                initial={{ opacity: 0, scale: 0.97 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.97 }}
+                transition={{ duration: 0.4, ease }}
+                className="relative flex h-full w-full items-center justify-center"
+              >
+                <Image
+                  src={item.image}
+                  alt={item.alt}
+                  width={VISUAL_SIZE[item.image]?.[0] ?? 1200}
+                  height={VISUAL_SIZE[item.image]?.[1] ?? 1200}
+                  sizes="(min-width: 1024px) 45vw, 100vw"
+                  className="h-auto max-h-full w-auto max-w-full rounded-[2rem]"
+                />
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 

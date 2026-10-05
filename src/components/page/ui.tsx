@@ -114,7 +114,7 @@ export function PageHero({
   return (
     <section
       id="top"
-      className="grain relative overflow-hidden bg-night px-5 pb-20 pt-32 text-white md:px-10 md:pb-28 md:pt-44"
+      className="grain relative overflow-hidden bg-night px-5 pb-20 pt-28 text-white md:px-10 md:pb-24 md:pt-32"
     >
       <div
         aria-hidden
@@ -166,7 +166,7 @@ export function PageHero({
           <RevealHeading
             as="h1"
             text={title}
-            className={`mt-6 font-serif leading-[0.92] tracking-[-0.02em] ${aside ? "text-[clamp(3.2rem,7vw,6.5rem)]" : "max-w-5xl text-[clamp(3.5rem,9vw,8.5rem)]"}`}
+            className={`mt-6 font-serif leading-[0.92] tracking-[-0.02em] ${aside ? "text-[clamp(2.8rem,5vw,4.75rem)]" : "max-w-5xl text-[clamp(3.5rem,9vw,8.5rem)]"}`}
           />
           {intro && (
             <motion.p
@@ -174,7 +174,7 @@ export function PageHero({
               initial={{ y: 14 }}
               animate={{ y: 0 }}
               transition={{ duration: 0.8, delay: 0.3, ease }}
-              className="mt-7 max-w-xl text-lg text-white/65 md:text-xl"
+              className="mt-6 max-w-xl text-lg text-white/65 md:text-xl"
             >
               {intro}
             </motion.p>
@@ -184,7 +184,7 @@ export function PageHero({
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.45, ease }}
-              className="mt-10"
+              className="mt-8"
             >
               {actions}
             </motion.div>

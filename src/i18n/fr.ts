@@ -311,7 +311,7 @@ export const fr = {
     playVideo: "Lire la vidéo avec le son",
     comparison: {
       eyebrow: "Comparatif",
-      heading: "Pourquoi nous sommes le *choix naturel.*",
+      heading: "Ce qui nous *distingue.*",
       techflow: "TechFlow",
       agencies: "Autres agences",
       freelancers: "Freelances",
