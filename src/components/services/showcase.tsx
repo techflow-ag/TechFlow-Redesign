@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { animate, m as motion, useInView, useMotionValueEvent, useScroll } from "motion/react";
+import { animate, m as motion, useInView } from "motion/react";
 import type { ServiceKey } from "@/i18n/routes";
 import { ease } from "../site/content";
 import { useLocale } from "../site/locale";
@@ -50,21 +50,12 @@ function DesignShowcase() {
   const { lang } = useLocale();
   const c = designCopy[lang];
   const n = c.stages.length;
-  const ref = useRef<HTMLElement>(null);
+  // Hover (or click / focus) a stage on the left to show it on the right.
   const [active, setActive] = useState(0);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-  useMotionValueEvent(scrollYProgress, "change", (v) => setActive(Math.min(n - 1, Math.max(0, Math.floor(v * n)))));
-
-  const goTo = (i: number) => {
-    const el = ref.current;
-    if (!el) return;
-    const top = el.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({ top: top + ((i + 0.5) / n) * (el.offsetHeight - window.innerHeight), behavior: "smooth" });
-  };
 
   return (
-    <section ref={ref} className="relative rounded-[2.5rem] bg-paper text-ink md:rounded-[4rem]" style={{ height: `${n * 75 + 25}vh` }}>
-      <div className="sticky top-0 flex min-h-svh items-center px-5 py-24 md:px-10">
+    <section className="relative rounded-[2.5rem] bg-paper text-ink md:rounded-[4rem]">
+      <div className="flex items-center px-5 py-20 md:px-10 md:py-28">
         <div className="mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:items-center lg:gap-16">
           <div>
             <p className="eyebrow text-brand-deep">{c.eyebrow}</p>
@@ -72,7 +63,7 @@ function DesignShowcase() {
             <ol className="mt-10 space-y-1">
               {c.stages.map((s, i) => (
                 <li key={s.label}>
-                  <button type="button" onClick={() => goTo(i)} className="group flex w-full items-baseline gap-4 py-2 text-left">
+                  <button type="button" onClick={() => setActive(i)} onPointerEnter={(e) => e.pointerType === "mouse" && setActive(i)} onFocus={() => setActive(i)} className="group flex w-full items-baseline gap-4 py-2 text-left">
                     <span className={`font-mono text-xs transition-colors ${i === active ? "text-brand-deep" : "text-ink/60"}`}>{pad(i + 1)}</span>
                     <span className={`font-serif text-3xl leading-tight transition-colors duration-500 md:text-4xl ${i === active ? "text-ink" : "text-ink/60 group-hover:text-ink/75"}`}>
                       {s.label}
@@ -82,7 +73,7 @@ function DesignShowcase() {
               ))}
             </ol>
             <div className="mt-6 h-px w-full bg-ink/10">
-              <motion.div className="h-px origin-left bg-brand-deep" style={{ scaleX: scrollYProgress }} />
+              <motion.div className="h-px origin-left bg-brand-deep" animate={{ scaleX: (active + 1) / n }} transition={{ duration: 0.5, ease }} />
             </div>
             <motion.p key={active} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease }} className="mt-6 max-w-sm text-ink/60">
               {c.stages[active].text}

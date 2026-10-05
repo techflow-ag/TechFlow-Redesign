@@ -40,7 +40,7 @@ const ADS = [
 const content: Record<Lang, Record<string, unknown>> = {
   fr: {
     summary:
-      "Des publicités vidéo, une campagne Meta pilotée vers l'achat, un parcours d'achat simplifié et un CRM Brevo réactivé : des dizaines de ventes en ligne supplémentaires pour une marque artisanale de lavande de Provence.",
+      "Des publicités vidéo, une campagne Meta pilotée vers l'achat, un parcours d'achat simplifié et un CRM Brevo réactivé : plus d'une dizaine de ventes en ligne supplémentaires chaque mois pour une marque artisanale de lavande de Provence.",
     services: ['Concepts & scripts', 'Montage vidéo', 'Campagne Meta Ads', 'Parcours d’achat', 'CRM Brevo', 'Suivi des ventes'],
     heroTags: ['sector-fr-growth-marketing', 'sector-fr-ecommerce'],
     headline: 'Faire vendre en ligne un savoir-faire de Provence.',
@@ -73,11 +73,11 @@ const content: Record<Lang, Record<string, unknown>> = {
       h2('Mesurer chaque vente'),
       p("Chaque commande venue de la campagne est identifiée grâce à des liens de tracking et au pixel Meta, puis rapprochée des commandes réelles de la boutique. Nous savons ainsi exactement ce que la publicité rapporte, au-delà des chiffres déclarés par Meta, et nous ajustons la campagne sur ces ventes réelles."),
       h2('Les résultats'),
-      p("La campagne a rapporté plus que son budget publicitaire : +56 % de retour sur investissement, et des dizaines de ventes supplémentaires. Rapportées à l'activité en ligne habituelle de la marque, les commandes venues de la campagne représentent +52 % de commandes et +46 % de chiffre d'affaires en ligne sur un mois."),
+      p("La campagne a rapporté plus que son budget publicitaire : +56 % de retour sur investissement, et plus d'une dizaine de ventes supplémentaires chaque mois. Rapportées à l'activité en ligne habituelle de la marque, les commandes venues de la campagne représentent +52 % de commandes et +46 % de chiffre d'affaires en ligne sur un mois."),
       p("* Commandes et chiffre d'affaires suivis par les liens de tracking sur un mois de campagne, comparés à la moyenne mensuelle de la boutique en ligne sur les 12 mois précédents."),
     ],
     results: [
-      ['Des dizaines', 'de ventes supplémentaires'],
+      ['10+', 'ventes supplémentaires chaque mois'],
       ['+16 %', 'de ROAS (retour sur dépense pub)'],
       ['+11 %', 'de panier moyen'],
       ['0,11 €', 'par clic au lancement'],
@@ -94,7 +94,7 @@ const content: Record<Lang, Record<string, unknown>> = {
   },
   en: {
     summary:
-      'Video ads, a Meta campaign optimised for purchases, a smoother checkout journey and a reactivated Brevo CRM: dozens of extra online sales for an artisan Provence lavender brand.',
+      'Video ads, a Meta campaign optimised for purchases, a smoother checkout journey and a reactivated Brevo CRM: more than ten extra online sales every month for an artisan Provence lavender brand.',
     services: ['Concepts & scripts', 'Video editing', 'Meta Ads campaign', 'Checkout journey', 'Brevo CRM', 'Sales tracking'],
     heroTags: ['sector-en-growth-marketing', 'sector-en-ecommerce'],
     headline: 'Selling a Provence craft online.',
@@ -127,11 +127,11 @@ const content: Record<Lang, Record<string, unknown>> = {
       h2('Measuring every sale'),
       p('Every order coming from the campaign is identified through tracking links and the Meta pixel, then matched against the shop’s real orders. We know exactly what the ads bring in, beyond the figures Meta reports, and tune the campaign on those real sales.'),
       h2('Results'),
-      p('The campaign brought in more than its ad budget: a 56% return on ad spend, and dozens of extra sales. Compared with the brand’s usual online business, the orders it generated amount to 52% more online orders and 46% more online revenue over a month.'),
+      p('The campaign brought in more than its ad budget: a 56% return on ad spend, and more than ten extra sales every month. Compared with the brand’s usual online business, the orders it generated amount to 52% more online orders and 46% more online revenue over a month.'),
       p('* Orders and revenue tracked through the campaign links over one month of the campaign, compared with the online shop’s monthly average over the previous 12 months.'),
     ],
     results: [
-      ['Dozens', 'of extra sales'],
+      ['10+', 'extra sales every month'],
       ['+16%', 'ROAS (return on ad spend)'],
       ['+11%', 'average order value'],
       ['€0.11', 'per click at launch'],

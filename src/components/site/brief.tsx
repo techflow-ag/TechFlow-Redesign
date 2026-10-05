@@ -66,8 +66,8 @@ export function Brief() {
           className="mt-4 max-w-4xl font-serif text-[2.75rem] leading-[0.95] md:text-[4.125rem]"
         />
 
-        <div className="mt-10 grid gap-8 md:mt-16 md:gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
-          <div className="space-y-8 md:space-y-12">
+        <div className="mt-8 grid gap-8 md:mt-12 md:gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-14">
+          <div className="space-y-6 md:space-y-8">
             <Question index={1} title={b.needs.title} hint={b.needs.hint}>
               {services.map((s) => (
                 <Chip
@@ -101,7 +101,7 @@ export function Brief() {
           </div>
 
           <div className="lg:sticky lg:top-28 lg:self-start">
-            <div className="relative overflow-hidden rounded-[2rem] bg-night p-6 text-white shadow-[0_40px_100px_-30px_rgba(54,71,245,0.6)] md:p-10">
+            <div className="relative overflow-hidden rounded-[2rem] bg-night p-6 text-white shadow-[0_40px_100px_-30px_rgba(54,71,245,0.6)] md:p-8">
               <div
                 aria-hidden
                 className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full bg-brand/30 blur-3xl"
@@ -111,7 +111,7 @@ export function Brief() {
                   <p className="eyebrow text-white/55">{b.card}</p>
                 </div>
 
-                <p className="mt-8 eyebrow text-white/55">{b.estimate}</p>
+                <p className="mt-6 eyebrow text-white/55">{b.estimate}</p>
                 <AnimatePresence mode="wait">
                   <motion.p
                     key={result?.value ?? "none"}
@@ -119,7 +119,7 @@ export function Brief() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -14 }}
                     transition={{ duration: 0.35, ease }}
-                    className="mt-2 font-serif text-5xl leading-none text-brand-sky md:text-6xl"
+                    className="mt-2 font-serif text-5xl leading-none text-brand-sky"
                   >
                     {result?.value ?? "—"}
                   </motion.p>
@@ -128,7 +128,7 @@ export function Brief() {
                   {result?.note ?? b.empty}
                 </p>
 
-                <dl className="mt-8 space-y-4 border-t border-white/10 pt-6 text-sm">
+                <dl className="mt-6 space-y-3 border-t border-white/10 pt-5 text-sm">
                   <Row label={b.goal.label} value={b.goals[goal]} />
                   <div className="flex items-start justify-between gap-4">
                     <dt className="text-white/55">{b.services}</dt>
@@ -156,7 +156,7 @@ export function Brief() {
                   <Row label={b.start.label} value={b.start.value} />
                 </dl>
 
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                   <Magnetic strength={0.2} className="flex-1">
                     <a
                       href={links.booking}
@@ -200,10 +200,10 @@ function Question({
     <fieldset>
       <legend className="flex items-baseline gap-3">
         <span className="eyebrow text-brand-deep">0{index}</span>
-        <span className="text-xl font-medium md:text-3xl">{title}</span>
+        <span className="text-xl font-medium md:text-2xl">{title}</span>
       </legend>
       {hint && <p className="mt-1 pl-9 text-sm text-ink/60">{hint}</p>}
-      <div className="mt-3 flex flex-wrap gap-2 md:mt-5 md:gap-2.5">{children}</div>
+      <div className="mt-3 flex flex-wrap gap-2 md:mt-4">{children}</div>
     </fieldset>
   );
 }
@@ -225,7 +225,7 @@ function Chip({
       onClick={onClick}
       aria-pressed={active}
       whileTap={{ scale: 0.95 }}
-      className={`flex items-center gap-2 rounded-full border px-3.5 py-2 text-sm transition-colors md:px-5 md:py-3 md:text-[15px] ${
+      className={`flex items-center gap-2 rounded-full border px-3.5 py-2 text-sm transition-colors md:px-4 md:py-2 ${
         active
           ? "border-brand-deep bg-brand-deep text-white"
           : "border-ink/15 bg-white hover:border-ink/40"

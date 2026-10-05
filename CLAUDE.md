@@ -97,7 +97,7 @@ Put project knowledge here, not in a personal Claude memory, so the whole team s
 ## Still local (not in Sanity)
 - The 3 Mux video testimonials (`src/components/site/content.ts`).
 - Team `members` used by the contact page and services hero (`src/components/team/data.ts`).
-- The team portrait strip (`team/portrait-strip.tsx`, on the home and team pages) shows the Sanity team members; its eyebrow/headline copy is in the component.
+- The team portrait strip (`team/portrait-strip.tsx`, home page only since 2026-10-05) shows the Sanity team members; its eyebrow/headline copy is in the component.
 
 ## Home page
 - Méthode (`src/components/site/process.tsx`): heading spans the full width; only the app window is sticky (vertically centred), so it never overflows short viewports. Step screens have mixed ratios, so they're shown whole (`object-contain` over a blurred copy), not cropped.

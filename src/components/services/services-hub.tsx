@@ -20,7 +20,7 @@ export function ServicesHub({ testimonials, faq }: { testimonials: React.ReactNo
 
   return (
     <>
-      <section id="top" className="grain relative overflow-hidden bg-night px-5 pb-10 pt-32 text-white md:px-10 md:pt-40">
+      <section id="top" className="grain relative overflow-hidden bg-night px-5 pb-10 pt-24 text-white md:px-10 md:pt-28">
         <EditorialHero
           crumbs={[{ label: t.nav.pages.services, href: href(lang, "services") }]}
           kicker={c.badge}

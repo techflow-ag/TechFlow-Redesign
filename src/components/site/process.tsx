@@ -78,7 +78,7 @@ function Step({
   }, [inView, index, onEnter]);
 
   return (
-    <li ref={ref} className="relative">
+    <li ref={ref} className="relative" onPointerEnter={(e) => e.pointerType === "mouse" && onEnter(index)}>
       <span
         aria-hidden
         className={`absolute -left-[1.85rem] top-9 size-3 rounded-full border-2 transition-colors duration-500 md:-left-[2.35rem] ${

@@ -11,7 +11,6 @@ import { SanityImage } from "../cms/sanity-image";
 import { OfficeMap } from "../page/office-map";
 import { Chip, ComparisonTable, HumanActions, PageHero, SectionHeader } from "../page/ui";
 import { offices, teamContent, type TeamMember } from "./data";
-import { PortraitStrip } from "./portrait-strip";
 
 /** Intrinsic sizes of the "how we work" visuals (public/images/studio). */
 const VISUAL_SIZE: Record<string, [number, number]> = {
@@ -49,7 +48,6 @@ export function TeamPage({ members, testimonials }: { members: TeamMember[]; tes
         </dl>
       </section>
 
-      <PortraitStrip members={members} />
 
       <section className="rounded-[2.5rem] bg-paper px-5 py-20 text-ink md:rounded-[4rem] md:px-10 md:py-28">
         <div className="mx-auto max-w-7xl">
@@ -140,14 +138,15 @@ export function TeamPage({ members, testimonials }: { members: TeamMember[]; tes
         </div>
       </section>
 
-      <section className="bg-night px-5 py-20 text-white md:px-10 md:py-28">
+      {/* Comparison + Cambodia: little bottom padding, the reviews section right after has its own top padding. */}
+      <section className="bg-night px-5 pb-2 pt-20 text-white md:px-10 md:pb-4 md:pt-28">
         <div className="mx-auto max-w-7xl">
           <SectionHeader eyebrow={t.common.comparison.eyebrow} title={c.comparison.heading} intro={c.comparison.intro} />
           <FadeIn className="mt-14">
             <ComparisonTable rows={c.comparison.rows} tone="dark" />
           </FadeIn>
 
-          <div className="mt-32 grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center">
+          <div className="mt-20 grid gap-12 md:mt-24 lg:grid-cols-[1fr_1fr] lg:items-center">
             <div>
               <p className="eyebrow text-brand-sky">{c.cambodia.eyebrow}</p>
               <RevealHeading text={c.cambodia.heading} className="mt-4 font-serif text-5xl leading-[0.95] md:text-7xl" />

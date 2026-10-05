@@ -67,7 +67,7 @@ export function EditorialHero({
       <RevealHeading
         as="h1"
         text={title}
-        className="mt-10 font-serif text-[clamp(3.2rem,9vw,9.5rem)] leading-[0.9] tracking-[-0.03em]"
+        className="mt-8 font-serif text-[clamp(2.8rem,7vw,7rem)] leading-[0.9] tracking-[-0.03em]"
       />
 
       {/* Visible from the server HTML (only slides): this paragraph is the page's largest content,

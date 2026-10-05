@@ -31,7 +31,7 @@ export function Industries() {
         </div>
 
         <FadeIn delay={0.1}>
-          <ul className="mt-14 flex flex-col gap-3 lg:h-[600px] lg:flex-row">
+          <ul className="mt-10 flex flex-col gap-3 lg:h-[460px] lg:flex-row">
             {s.items.map((item, i) => (
               <Panel key={item.id} item={item} index={i} active={active === i} onActivate={() => setActive(i)} />
             ))}

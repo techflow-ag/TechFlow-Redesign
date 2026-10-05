@@ -70,6 +70,7 @@ export function Convictions() {
                   <button
                     type="button"
                     onClick={() => setActive(i)}
+                    onPointerEnter={(e) => e.pointerType === "mouse" && setActive(i)}
                     aria-expanded={on}
                     className="group flex w-full items-start gap-5 py-7 text-left"
                   >

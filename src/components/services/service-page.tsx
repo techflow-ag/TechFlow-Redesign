@@ -30,13 +30,14 @@ export function ServicePage({ service, faq, cmsProjects }: { service: ServiceKey
   const nextKey = serviceKeys[(index + 1) % serviceKeys.length];
   const next = t.services.items.find((s) => s.href === href(lang, nextKey));
 
-  const work = c.work.projects.map((slug) => projects.find((p) => p.slug === slug)).filter((p) => p !== undefined);
-  const webSlugs = [...new Set([c.hero.project, ...work.filter((p) => !p.kind).map((p) => p.slug)])];
+  const work = c.work.projects;
+  const local = work.map((slug) => projects.find((p) => p.slug === slug)).filter((p) => p !== undefined);
+  const webSlugs = [...new Set([c.hero.project, ...local.filter((p) => !p.kind).map((p) => p.slug)])];
   const previews = webSlugs.flatMap((slug) => projectPreviews(slug));
 
   return (
     <>
-      <section id="top" className="grain relative overflow-hidden bg-night px-5 pt-32 text-white md:px-10 md:pt-40">
+      <section id="top" className="grain relative overflow-hidden bg-night px-5 pt-24 text-white md:px-10 md:pt-28">
         <EditorialHero
           crumbs={[
             { label: t.nav.pages.services, href: href(lang, "services") },
@@ -260,9 +261,18 @@ function Cases({ cases }: { cases: NonNullable<ServiceContent["cases"]> }) {
   );
 }
 
-function ComparisonAndWork({ content, work, cmsProjects }: { content: ServiceContent; work: typeof projects; cmsProjects: CmsProject[] }) {
+/** `work`: project slugs. Each shows its Sanity card, else the coded card; slugs found in neither (e.g. a "Staging only" case study on www) are skipped. */
+function ComparisonAndWork({ content, work, cmsProjects }: { content: ServiceContent; work: string[]; cmsProjects: CmsProject[] }) {
   const { t, lang } = useLocale();
   const c = t.common.comparison;
+  // The same Sanity card as the home page and /projets; the coded card only if the slug isn't in the CMS.
+  const cards = work
+    .map((slug) => ({
+      slug,
+      cms: cmsProjects.find((cp) => cp.slug === slug || cp.slug?.startsWith(`${slug}-`)),
+      local: projects.find((p) => p.slug === slug),
+    }))
+    .filter((card) => card.cms || card.local);
 
   return (
     <section className="rounded-[2.5rem] bg-paper px-5 py-20 text-ink md:rounded-[4rem] md:px-10 md:py-28">
@@ -275,16 +285,12 @@ function ComparisonAndWork({ content, work, cmsProjects }: { content: ServiceCon
           </Link>
         </div>
         <p className="mt-4 max-w-xl text-ink/60">{content.work.intro}</p>
-        <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {work.map((p, i) => {
-            // The same Sanity card as the home page and /projets; the coded card only if the slug isn't in the CMS.
-            const cms = cmsProjects.find((cp) => cp.slug === p.slug || cp.slug?.startsWith(`${p.slug}-`));
-            return (
-              <FadeIn as="li" key={p.slug} delay={i * 0.08}>
-                {cms ? <CmsProjectCard project={cms} /> : <ProjectCard project={p} />}
-              </FadeIn>
-            );
-          })}
+        <ul className={`mt-12 grid gap-5 sm:grid-cols-2 ${cards.length > 2 ? "lg:grid-cols-3" : ""}`}>
+          {cards.map((card, i) => (
+            <FadeIn as="li" key={card.slug} delay={i * 0.08}>
+              {card.cms ? <CmsProjectCard project={card.cms} /> : card.local && <ProjectCard project={card.local} />}
+            </FadeIn>
+          ))}
         </ul>
 
         <div className="mt-36">

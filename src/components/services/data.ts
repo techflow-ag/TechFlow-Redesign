@@ -518,7 +518,7 @@ const fr: Record<ServiceKey, ServiceContent> = {
       eyebrow: "Réalisé par TechFlow",
       heading: "Du clic au *rendez-vous.*",
       intro: "Campagnes, landing pages et sites pensés pour convertir, mesurés à chaque étape.",
-      projects: ["gato-tower", "place-des-aines", "leapmotor"],
+      projects: ["gato-tower", "elsa-lenthal"],
     },
     nextStep: {
       title: "Audit de croissance",
@@ -921,7 +921,7 @@ const en: Record<ServiceKey, ServiceContent> = {
       eyebrow: "Built by TechFlow",
       heading: "From click to *meeting.*",
       intro: "Campaigns, landing pages and websites built to convert, measured at every step.",
-      projects: ["gato-tower", "place-des-aines", "leapmotor"],
+      projects: ["gato-tower", "elsa-lenthal"],
     },
     nextStep: {
       title: "Growth audit",

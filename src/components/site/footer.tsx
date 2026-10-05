@@ -45,11 +45,11 @@ export function Footer({ cta = true, tools = [] }: { cta?: boolean; tools?: { ti
 
   return (
     <footer
-      className={`relative overflow-hidden bg-linear-to-b from-night via-navy-deep to-brand-deep px-5 text-white md:px-10 ${cta ? "pt-28 md:pt-36" : "pt-16 md:pt-20"}`}
+      className={`relative overflow-hidden bg-linear-to-b from-night via-navy-deep to-brand-deep px-5 text-white md:px-10 ${cta ? "pt-16 md:pt-20" : "pt-16 md:pt-20"}`}
     >
       <div className="mx-auto max-w-7xl">
         {cta && (
-          <div className="relative py-8 md:py-12">
+          <div className="relative py-4 md:py-6">
             {/* Blue glow behind the call to action, fading into the footer's own gradient. */}
             <div
               aria-hidden
@@ -61,7 +61,7 @@ export function Footer({ cta = true, tools = [] }: { cta?: boolean; tools?: { ti
           </div>
         )}
 
-        <div className={`grid gap-12 md:grid-cols-[1.2fr_repeat(3,1fr)] ${cta ? "mt-28 border-t border-white/15 pt-14" : ""}`}>
+        <div className={`grid gap-12 md:grid-cols-[1.2fr_repeat(3,1fr)] ${cta ? "mt-14 border-t border-white/15 pt-12 md:mt-16" : ""}`}>
           <div>
             <Image
               src="/images/techflow-logo.svg"
