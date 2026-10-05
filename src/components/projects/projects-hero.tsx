@@ -66,7 +66,7 @@ export function ProjectsHero({ projects }: { projects: WallProject[] }) {
         mx.set(e.clientX / window.innerWidth - 0.5);
         my.set(e.clientY / window.innerHeight - 0.5);
       }}
-      className="grain relative flex flex-col overflow-hidden bg-night px-5 pb-16 pt-32 text-white md:px-10 md:pb-28 md:pt-44 lg:min-h-[100svh] lg:justify-center"
+      className="grain relative flex flex-col overflow-hidden bg-night px-5 pb-16 pt-28 text-white md:px-10 md:pb-28 md:pt-32 lg:min-h-[100svh] lg:justify-center"
     >
       <div
         aria-hidden
@@ -158,7 +158,7 @@ export function ProjectsHero({ projects }: { projects: WallProject[] }) {
           <RevealHeading
             as="h1"
             text={c.title}
-            className="mt-6 font-serif text-[clamp(3rem,5.4vw,5.6rem)] leading-[0.92] tracking-[-0.02em]"
+            className="mt-6 font-serif text-[clamp(2.8rem,5vw,4.75rem)] leading-[0.92] tracking-[-0.02em]"
           />
 
           <motion.p

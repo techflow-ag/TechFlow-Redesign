@@ -105,15 +105,10 @@ export function TeamPage({ members, testimonials }: { members: TeamMember[]; tes
         </div>
       </section>
 
-      {/* Comparison + Cambodia: little bottom padding, the reviews section right after has its own top padding. */}
+      {/* Cambodia + comparison: little bottom padding, the reviews section right after has its own top padding. */}
       <section className="bg-night px-5 pb-2 pt-20 text-white md:px-10 md:pb-4 md:pt-28">
         <div className="mx-auto max-w-7xl">
-          <SectionHeader eyebrow={t.common.comparison.eyebrow} title={c.comparison.heading} intro={c.comparison.intro} />
-          <FadeIn className="mt-14">
-            <ComparisonTable rows={c.comparison.rows} tone="dark" />
-          </FadeIn>
-
-          <div className="mt-20 grid gap-12 md:mt-24 lg:grid-cols-[1fr_1fr] lg:items-center">
+          <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center">
             <div>
               <p className="eyebrow text-brand-sky">{c.cambodia.eyebrow}</p>
               <RevealHeading text={c.cambodia.heading} className="mt-4 font-serif text-5xl leading-[0.95] md:text-7xl" />
@@ -142,6 +137,12 @@ export function TeamPage({ members, testimonials }: { members: TeamMember[]; tes
                   ))}
                 </div>
               </div>
+            </FadeIn>
+          </div>
+          <div className="mt-20 md:mt-24">
+            <SectionHeader eyebrow={t.common.comparison.eyebrow} title={c.comparison.heading} intro={c.comparison.intro} />
+            <FadeIn className="mt-14">
+              <ComparisonTable rows={c.comparison.rows} tone="dark" />
             </FadeIn>
           </div>
         </div>

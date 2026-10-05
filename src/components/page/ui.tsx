@@ -166,7 +166,7 @@ export function PageHero({
           <RevealHeading
             as="h1"
             text={title}
-            className={`mt-6 font-serif leading-[0.92] tracking-[-0.02em] ${aside ? "text-[clamp(2.8rem,5vw,4.75rem)]" : "max-w-5xl text-[clamp(3.5rem,9vw,8.5rem)]"}`}
+            className={`mt-6 font-serif leading-[0.92] tracking-[-0.02em] text-[clamp(2.8rem,5vw,4.75rem)] ${aside ? "" : "max-w-4xl"}`}
           />
           {intro && (
             <motion.p
