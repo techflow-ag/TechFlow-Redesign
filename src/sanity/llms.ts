@@ -12,7 +12,7 @@ export const LLMS_QUERY = defineQuery(`{
   "insights": *[_type == "insight" && defined(slug.current)] | order(publishedAt desc) {
     language, title, "slug": slug.current, excerpt, publishedAt, "text": pt::text(body)
   },
-  "projects": *[_type in ["project", "growthCaseStudy"] && defined(slug.current)] | order(coalesce(order, 999) asc) {
+  "projects": *[_type in ["project", "growthCaseStudy"] && defined(slug.current) && previewOnly != true] | order(coalesce(order, 999) asc) {
     language, title, "slug": slug.current, summary
   }
 }`);

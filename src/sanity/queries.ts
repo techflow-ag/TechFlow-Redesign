@@ -43,7 +43,7 @@ const projectCard = /* groq */ `
 
 /** Website projects and growth case studies together: same cards, same sector filters. */
 export const PROJECTS_INDEX_QUERY = defineQuery(`
-  *[_type in ["project", "growthCaseStudy"] && language == $lang && defined(slug.current)]
+  *[_type in ["project", "growthCaseStudy"] && language == $lang && defined(slug.current) && (previewOnly != true || $preview)]
     | order(coalesce(order, 999) asc, title asc) { _type, ${projectCard} }
 `);
 
@@ -66,7 +66,7 @@ export const PROJECT_DETAIL_QUERY = defineQuery(`
     _updatedAt,
     ${seo},
     ${translations},
-    "related": *[_type in ["project", "growthCaseStudy"] && language == $lang && defined(slug.current) && slug.current != $slug]
+    "related": *[_type in ["project", "growthCaseStudy"] && language == $lang && defined(slug.current) && slug.current != $slug && (previewOnly != true || $preview)]
       | order(coalesce(order, 999) asc)[0...3] { _type, ${projectCard} }
   }
 `);
@@ -102,7 +102,7 @@ export const PROJECT_SLUGS_QUERY = defineQuery(`
 
 /** Growth marketing case study (video ads → qualified leads), its own template at /projets/<slug>. */
 export const GROWTH_CASE_STUDY_QUERY = defineQuery(`
-  *[_type == "growthCaseStudy" && language == $lang && slug.current == $slug][0]{
+  *[_type == "growthCaseStudy" && language == $lang && slug.current == $slug && (previewOnly != true || $preview)][0]{
     _id,
     title,
     "slug": slug.current,
@@ -138,7 +138,7 @@ export const GROWTH_CASE_STUDY_QUERY = defineQuery(`
     // The chosen next case study first, then the others in list order (deduplicated in the page).
     "related": [
       ...select(defined(next) => [next->{ _type, ${projectCard} }], []),
-      ...*[_type in ["project", "growthCaseStudy"] && language == $lang && defined(slug.current) && slug.current != $slug]
+      ...*[_type in ["project", "growthCaseStudy"] && language == $lang && defined(slug.current) && slug.current != $slug && (previewOnly != true || $preview)]
         | order(coalesce(order, 999) asc)[0...4]{ _type, ${projectCard} }
     ],
     _updatedAt,
@@ -148,12 +148,12 @@ export const GROWTH_CASE_STUDY_QUERY = defineQuery(`
 `);
 
 export const GROWTH_SLUGS_QUERY = defineQuery(`
-  *[_type == "growthCaseStudy" && language == $lang && defined(slug.current)].slug.current
+  *[_type == "growthCaseStudy" && language == $lang && defined(slug.current) && (previewOnly != true || $preview)].slug.current
 `);
 
 /** Growth case studies for the project listings (cards are coded locally, so only what links to them). */
 export const GROWTH_INDEX_QUERY = defineQuery(`
-  *[_type == "growthCaseStudy" && language == $lang && defined(slug.current)] | order(coalesce(order, 999) asc){
+  *[_type == "growthCaseStudy" && language == $lang && defined(slug.current) && (previewOnly != true || $preview)] | order(coalesce(order, 999) asc){
     "slug": slug.current, title, accentColor
   }
 `);
@@ -302,7 +302,7 @@ export const REDIRECTS_QUERY = defineQuery(`
 /** Indexable CMS pages: hidden pages and pages pointing their canonical elsewhere are left out. */
 export const SITEMAP_QUERY = defineQuery(`
   *[_type in ["project", "growthCaseStudy", "tool", "insight"] && defined(slug.current) && defined(language)
-    && seo.noIndex != true && !defined(seo.canonicalUrl)]{
+    && seo.noIndex != true && !defined(seo.canonicalUrl) && previewOnly != true]{
     _type,
     language,
     "slug": slug.current,

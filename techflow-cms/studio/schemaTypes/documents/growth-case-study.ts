@@ -33,6 +33,14 @@ export const growthCaseStudy = defineType({
   fields: [
     languageField,
     defineField({name: 'title', title: 'Client name', type: 'string', group: 'content', validation: (r) => r.required()}),
+    defineField({
+      name: 'previewOnly',
+      title: 'Staging only',
+      description: 'Ticked: the case study shows on staging.techflow-agency.com (and previews) but not on www, for review before going live.',
+      type: 'boolean',
+      initialValue: false,
+      group: 'content',
+    }),
     {...slugField, group: 'content'},
     defineField({
       name: 'accentColor',
