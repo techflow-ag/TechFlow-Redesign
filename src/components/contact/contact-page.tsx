@@ -177,7 +177,7 @@ function BriefForm() {
   const [services, setServices] = useState<string[]>([]);
   const [budget, setBudget] = useState("");
   const [timeline, setTimeline] = useState("");
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error" | "limited">("idle");
   // Anti-spam: when the form appeared in the browser (bots posting straight to the API have none).
   const [shownAt, setShownAt] = useState(0);
   useEffect(() => {
@@ -214,6 +214,8 @@ function BriefForm() {
           shownAt,
         }),
       });
+      // 429: the Vercel Firewall allows 5 submissions per IP per 10 minutes.
+      if (res.status === 429) return setStatus("limited");
       if (!res.ok) throw new Error(String(res.status));
       setStatus("sent");
       form.reset();
@@ -341,10 +343,10 @@ function BriefForm() {
                 </span>
               </button>
               <p
-                className={`text-sm ${status === "sent" ? "font-medium text-emerald-600" : status === "error" ? "font-medium text-red-600" : "text-ink/60"}`}
+                className={`text-sm ${status === "sent" ? "font-medium text-emerald-600" : status === "error" || status === "limited" ? "font-medium text-red-600" : "text-ink/60"}`}
                 aria-live="polite"
               >
-                {{ idle: f.note, sending: f.sending, sent: f.sent, error: f.error }[status]}
+                {{ idle: f.note, sending: f.sending, sent: f.sent, error: f.error, limited: f.limited }[status]}
               </p>
             </div>
           </form>
