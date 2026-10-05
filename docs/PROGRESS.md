@@ -18,6 +18,7 @@ Update at the end of every work session (see CLAUDE.md). Newest first. Link GitH
 - Decide whether to move the remaining local content (Gato Tower case study, Mux video testimonials, contact/services team members) into Sanity.
 
 ## Done
+- 2026-10-05 — **404 page fixed**: every 404 showed Next's bare fallback; now the site's 404 (navbar, "Retour à l'accueil", links, footer) in FR and EN, for unmatched URLs (`global-not-found.tsx`) and `notFound()` (`[lang]/not-found.tsx`, now a server component). See CLAUDE.md.
 - 2026-10-05 — /merci-2 (design-system version of /merci) built for comparison, then deleted: Max keeps /merci as is.
 - 2026-10-05 — **/merci landing page** (Meta lead form → Calendly with Arthur) served as is from the former Astro site (`scripts/landing/import-merci.py`, see CLAUDE.md), Webflow CDN images localized, "+1 500 sites" stat (Max's call, matches the ads). Sanity: redirect `/merci` → `/` deleted, `/confidentialite` → `/politique-de-confidentialite` added.
 - 2026-10-03 — **Go-live**: www.techflow-agency.com on Vercel (main), cms.techflow-agency.com and staging.techflow-agency.com live, contact form via Resend tested, 5 EN articles published (editor fixes applied), first-visit logo animation, sky parallax.

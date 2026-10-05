@@ -1,5 +1,14 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { LOCALE_HEADER } from "./i18n/locale-header";
 import { englishAliases } from "./i18n/routes";
+
+
+/** Request headers with the locale added, for `rewrite` / `next`. */
+function withLocale(request: NextRequest, lang: "fr" | "en") {
+  const headers = new Headers(request.headers);
+  headers.set(LOCALE_HEADER, lang);
+  return { request: { headers } };
+}
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -8,9 +17,9 @@ export function proxy(request: NextRequest) {
   if (pathname === "/en" || pathname.startsWith("/en/")) {
     const [, , first, ...rest] = pathname.split("/");
     const folder = first && englishAliases[first];
-    if (!folder) return;
+    if (!folder) return NextResponse.next(withLocale(request, "en"));
     url.pathname = ["", "en", folder, ...rest].join("/");
-    return NextResponse.rewrite(url);
+    return NextResponse.rewrite(url, withLocale(request, "en"));
   }
 
   if (pathname === "/fr" || pathname.startsWith("/fr/")) {
@@ -20,7 +29,7 @@ export function proxy(request: NextRequest) {
   }
 
   url.pathname = `/fr${pathname === "/" ? "" : pathname}`;
-  return NextResponse.rewrite(url);
+  return NextResponse.rewrite(url, withLocale(request, "fr"));
 }
 
 export const config = {
