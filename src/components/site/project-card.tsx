@@ -137,6 +137,8 @@ export function ProjectCardView({
   const posterFan = posters && previews.length > 0;
   const stacked = !posters && previews.length > 0;
   const phoneStack = !posterFan && !stacked && phones.length > 0;
+  // Growth case studies with ad phones (no poster images) show the phones fanned out at rest too, instead of a cover.
+  const restPhones = phoneStack && posters;
   // Every stack cycles the same way.
   const count = phoneStack ? phones.length : stacked || posterFan ? previews.length : 0;
   const [hovered, setHovered] = useState(false);
@@ -176,7 +178,7 @@ export function ProjectCardView({
       >
         <div className="relative aspect-[4/5] [transform-style:preserve-3d]" style={{ "--accent": theme.accent } as CSSProperties}>
           <div className="absolute inset-0 overflow-hidden rounded-3xl bg-[color-mix(in_oklab,var(--accent)_28%,#0c0e16)] shadow-[0_0_0_rgba(0,0,0,0)] transition-shadow duration-700 group-hover:shadow-[0_50px_80px_-30px_rgba(0,0,0,0.55)]">
-            {growth ? (
+            {restPhones ? null : growth ? (
               <div className={`absolute inset-0 transition-[opacity,filter] duration-700 ${stacked || phoneStack || posterFan ? "group-hover:opacity-30 group-hover:blur-[6px]" : ""}`}>
                 <GrowthCover videos={t.work.growthCover.videos} title={t.work.growthCover.title} labels={tags.length === 0} />
               </div>
@@ -275,7 +277,7 @@ export function ProjectCardView({
             </div>
           )}
 
-          {phoneStack && armed && (
+          {phoneStack && (armed || restPhones) && (
             <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-[8%] top-[14%] [transform-style:preserve-3d]">
               {phones.map((phone, i) => {
                 const pos = (i - slide + phones.length) % phones.length;
@@ -284,9 +286,9 @@ export function ProjectCardView({
                     key={phone._key}
                     className="absolute left-1/2 top-0 h-full transition-[transform,opacity,filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
                     style={{
-                      transform: hovered ? PHONE_STACK[pos] ?? PHONE_STACK[PHONE_STACK.length - 1] : "translate3d(-50%,40%,1px) rotateX(20deg) scale(0.8)",
-                      opacity: hovered ? 1 : 0,
-                      filter: hovered && pos > 0 ? "brightness(0.7)" : "none",
+                      transform: hovered || restPhones ? PHONE_STACK[pos] ?? PHONE_STACK[PHONE_STACK.length - 1] : "translate3d(-50%,40%,1px) rotateX(20deg) scale(0.8)",
+                      opacity: hovered || restPhones ? 1 : 0,
+                      filter: (hovered || restPhones) && pos > 0 ? "brightness(0.7)" : "none",
                       zIndex: phones.length - pos,
                       transitionDelay: hovered ? `${pos * 60}ms` : "0ms",
                     }}
